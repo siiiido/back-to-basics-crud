@@ -1,11 +1,14 @@
-import express from 'express';
-const app = express();
+import app from '../app';
+import mongoose from 'mongoose';
+
 const port = 5000;
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+mongoose
+  .connect()
+  .then(() => {
+    console.log('mongoose connected');
+    app.listen(port, () => {
+      console.log(`Example app listening on port ${port}`);
+    });
+  })
+  .catch();
