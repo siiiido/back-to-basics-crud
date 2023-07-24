@@ -1,0 +1,5 @@
+nodemon: automatically restarting the node application when file changes in the directory are detected.
+dotenv: t loads environment variables from a .env file into process.env
+npx tsc: JS로 컴파일, ES6 or .. 타겟 지정 가능
+ts-node: ts-node is a TypeScript execution engine and REPL for Node.js.It JIT transforms TypeScript into JavaScript, enabling you to directly execute TypeScript on Node.js without precompiling. 
+npx nodemon src/server.ts: nodemon으로 서버 계속 실행
