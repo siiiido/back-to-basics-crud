@@ -57,9 +57,50 @@ const getBlogByTitle = async (req: Request, res: Response) => {
 };
 
 // replace entirely
-const putBlogByTitle = async (req: Request, res: Response) => {};
+const putBlogByTitle = async (req: Request, res: Response) => {
+  const blogId = req.params.id;
+  const { title, content } = req.body;
 
-const patchBlogByTitle = async (req: Request, res: Response) => {};
+  if (!title || !content) res.status(404).json({ message: 'Blog not found' });
+
+  try {
+    const replacedBlog = await Blog.findOneAndReplace(
+      { _id: blogId },
+      { title, content, date: new Date().toLocaleString() },
+      { new: true }
+    );
+
+    if (!replacedBlog)
+      return res.status(400).json({ message: 'Blog not found' });
+
+    return res.json(replacedBlog);
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+const patchBlogByTitle = async (req: Request, res: Response) => {
+  const blogId = req.params.id;
+  const { title, content } = req.body;
+
+  if (!title || !content)
+    return res.status(404).json({ message: 'Blog not found' });
+
+  try {
+    const updatedBlog = await Blog.findOneAndUpdate(
+      { _id: blogId },
+      { title, content, date: new Date().toLocaleString() },
+      { new: true }
+    );
+
+    if (!updatedBlog)
+      return res.status(404).json({ message: 'Blog not found' });
+
+    return res.json(updatedBlog);
+  } catch (error) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 const removeBlogByTitle = async (req: Request, res: Response) => {
   const { title } = req.params;
