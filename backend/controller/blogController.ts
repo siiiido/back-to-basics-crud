@@ -42,6 +42,7 @@ const getAllBlogs = async (req: Request, res: Response) => {
 };
 
 const getBlogByTitle = async (req: Request, res: Response) => {
+  console.log(req.params);
   const { title } = req.params;
 
   try {
@@ -103,6 +104,7 @@ const patchBlogByTitle = async (req: Request, res: Response) => {
 };
 
 const removeBlogByTitle = async (req: Request, res: Response) => {
+  console.log(req.params, '123');
   const { title } = req.params;
   try {
     if (!title) return res.status(404).json({ message: 'Title not found' });

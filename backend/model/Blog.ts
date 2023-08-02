@@ -3,7 +3,7 @@ import { model, Schema } from 'mongoose';
 interface IBlog {
   title: string;
   content: string;
-  date: Date;
+  date: string;
 }
 
 const blogSchema = new Schema<IBlog>({
@@ -16,7 +16,7 @@ const blogSchema = new Schema<IBlog>({
     required: true,
   },
   date: {
-    type: Date,
+    type: String,
     required: true,
   },
 });
