@@ -28,6 +28,7 @@ const createBlog = async (req: Request, res: Response) => {
 };
 
 const getAllBlogs = async (req: Request, res: Response) => {
+  console.log('All Blogs');
   try {
     const allBlogs = await Blog.find();
 
@@ -42,11 +43,12 @@ const getAllBlogs = async (req: Request, res: Response) => {
 };
 
 const getBlogByTitle = async (req: Request, res: Response) => {
-  console.log(req.params, ' This is params');
-  const id = req.params.id;
-
+  // Route path: /users/:userId/books/:bookId
+  // Request URL: http://localhost:3000/users/34/books/8989
+  // req.params: { "userId": "34", "bookId": "8989" }
+  const _id = req.params;
   try {
-    const blog = await Blog.findById(id).exec();
+    const blog = await Blog.find({ _id }).exec();
 
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
 
@@ -59,14 +61,14 @@ const getBlogByTitle = async (req: Request, res: Response) => {
 
 // replace entirely
 const putBlogByTitle = async (req: Request, res: Response) => {
-  const blogId = req.params.id;
+  const _id = req.params;
   const { title, content } = req.body;
 
   if (!title || !content) res.status(404).json({ message: 'Blog not found' });
 
   try {
     const replacedBlog = await Blog.findOneAndReplace(
-      { _id: blogId },
+      { _id },
       { title, content, date: new Date().toLocaleString() },
       { new: true }
     );
@@ -81,7 +83,7 @@ const putBlogByTitle = async (req: Request, res: Response) => {
 };
 
 const patchBlogByTitle = async (req: Request, res: Response) => {
-  const blogId = req.params.id;
+  const _id = req.params;
   const { title, content } = req.body;
 
   if (!title || !content)
@@ -89,7 +91,7 @@ const patchBlogByTitle = async (req: Request, res: Response) => {
 
   try {
     const updatedBlog = await Blog.findOneAndUpdate(
-      { _id: blogId },
+      { _id },
       { title, content, date: new Date().toLocaleString() },
       { new: true }
     );
@@ -104,12 +106,11 @@ const patchBlogByTitle = async (req: Request, res: Response) => {
 };
 
 const removeBlogByTitle = async (req: Request, res: Response) => {
-  console.log(req.params, '123');
-  const { title } = req.params;
+  const _id = req.params;
   try {
-    if (!title) return res.status(404).json({ message: 'Title not found' });
+    if (!_id) return res.status(404).json({ message: 'Title not found' });
 
-    const deletedBLog = await Blog.findOneAndDelete({ title });
+    const deletedBLog = await Blog.findOneAndDelete({ _id });
 
     if (!deletedBLog) return res.status(401).json({ message: 'Error' });
 
