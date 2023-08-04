@@ -3,14 +3,7 @@ import mongoose from 'mongoose';
 import connectDB from './config/connectDB';
 import express from 'express';
 import { Request, Response } from 'express';
-import {
-  createBlog,
-  getAllBlogs,
-  getBlogByTitle,
-  putBlogByTitle,
-  patchBlogByTitle,
-  removeBlogByTitle,
-} from './controller/blogController';
+import router from './routes/blogsRouters';
 
 const app = express();
 const port: number = parseInt((process.env.PORT || 5001) as string, 10);
@@ -23,12 +16,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
-app.post('/blog', createBlog);
-app.get('/blog', getAllBlogs);
-app.get('/blog/:title', getBlogByTitle);
-app.put('/blog/:id', putBlogByTitle);
-app.patch('/blog/:id', patchBlogByTitle);
-app.delete('/blog/:title', removeBlogByTitle);
+app.use('/blog', router);
 
 mongoose.connection.once('open', () => {
   app.listen(port, () => {

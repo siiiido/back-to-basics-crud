@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Blog from '../model/Blog';
+import Blog from '../models/Blog';
 
 const createBlog = async (req: Request, res: Response) => {
   try {
@@ -42,11 +42,11 @@ const getAllBlogs = async (req: Request, res: Response) => {
 };
 
 const getBlogByTitle = async (req: Request, res: Response) => {
-  console.log(req.params);
-  const { title } = req.params;
+  console.log(req.params, ' This is params');
+  const id = req.params.id;
 
   try {
-    const blog = await Blog.findOne({ title });
+    const blog = await Blog.findById(id).exec();
 
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
 
