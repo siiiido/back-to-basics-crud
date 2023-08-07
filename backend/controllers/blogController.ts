@@ -42,14 +42,13 @@ const getAllBlogs = async (req: Request, res: Response) => {
   }
 };
 
-const getBlogByTitle = async (req: Request, res: Response) => {
+const getBlogById = async (req: Request, res: Response) => {
   // Route path: /users/:userId/books/:bookId
 
   // http://localhost:5001/blog/64cc5278253e69fd1c7794e5
   // req.params: { "id": "64cc5278253e69fd1c7794e5" }
   const { id } = req.params;
   try {
-    // const blog = await Blog.find({ _id: id }).exec();
     const blog = await Blog.findById(id).exec();
 
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
@@ -62,7 +61,7 @@ const getBlogByTitle = async (req: Request, res: Response) => {
 };
 
 // replace entirely
-const putBlogByTitle = async (req: Request, res: Response) => {
+const putBlogById = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
@@ -84,7 +83,7 @@ const putBlogByTitle = async (req: Request, res: Response) => {
   }
 };
 
-const patchBlogByTitle = async (req: Request, res: Response) => {
+const patchBlogById = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
@@ -107,7 +106,7 @@ const patchBlogByTitle = async (req: Request, res: Response) => {
   }
 };
 
-const removeBlogByTitle = async (req: Request, res: Response) => {
+const removeBlogById = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     if (!id) return res.status(404).json({ message: 'Title not found' });
@@ -127,8 +126,8 @@ const removeBlogByTitle = async (req: Request, res: Response) => {
 export {
   createBlog,
   getAllBlogs,
-  getBlogByTitle,
-  putBlogByTitle,
-  patchBlogByTitle,
-  removeBlogByTitle,
+  getBlogById,
+  putBlogById,
+  patchBlogById,
+  removeBlogById,
 };

@@ -2,19 +2,19 @@ import express from 'express';
 import {
   createBlog,
   getAllBlogs,
-  getBlogByTitle,
-  putBlogByTitle,
-  patchBlogByTitle,
-  removeBlogByTitle,
+  getBlogById,
+  putBlogById,
+  patchBlogById,
+  removeBlogById,
 } from '../controllers/blogController';
 
 const router = express.Router();
 
 router.post('/', createBlog);
-router.get('/:id', getBlogByTitle);
+router.get('/:id', getBlogById);
 router.get('/', getAllBlogs);
-router.put('/:id', putBlogByTitle);
-router.patch('/:id', patchBlogByTitle);
-router.delete('/:id', removeBlogByTitle);
+router.put('/:id', putBlogById);
+router.patch('/:id', patchBlogById);
+router.delete('/:id', removeBlogById);
 
 export default router;
