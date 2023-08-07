@@ -28,7 +28,6 @@ const createBlog = async (req: Request, res: Response) => {
 };
 
 const getAllBlogs = async (req: Request, res: Response) => {
-  console.log('All Blogs');
   try {
     const allBlogs = await Blog.find();
 
