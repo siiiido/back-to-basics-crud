@@ -3,16 +3,16 @@ import Blog from '../models/Blog';
 
 const createBlog = async (req: Request, res: Response) => {
   try {
-    const { title, content, date } = req.body;
+    const { title, content } = req.body;
 
-    if (!title || !content || !date) {
+    if (!title || !content) {
       return res.status(400).json({ message: '400 Error' });
     }
 
     const blog = await Blog.create({
       title,
       content,
-      date,
+      date: new Date().toLocaleString(),
     });
 
     if (blog) {
@@ -44,11 +44,13 @@ const getAllBlogs = async (req: Request, res: Response) => {
 
 const getBlogByTitle = async (req: Request, res: Response) => {
   // Route path: /users/:userId/books/:bookId
-  // Request URL: http://localhost:3000/users/34/books/8989
-  // req.params: { "userId": "34", "bookId": "8989" }
-  const _id = req.params;
+
+  // http://localhost:5001/blog/64cc5278253e69fd1c7794e5
+  // req.params: { "id": "64cc5278253e69fd1c7794e5" }
+  const { id } = req.params;
   try {
-    const blog = await Blog.find({ _id }).exec();
+    // const blog = await Blog.find({ _id: id }).exec();
+    const blog = await Blog.findById(id).exec();
 
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
 
@@ -61,14 +63,14 @@ const getBlogByTitle = async (req: Request, res: Response) => {
 
 // replace entirely
 const putBlogByTitle = async (req: Request, res: Response) => {
-  const _id = req.params;
+  const { id } = req.params;
   const { title, content } = req.body;
 
   if (!title || !content) res.status(404).json({ message: 'Blog not found' });
 
   try {
     const replacedBlog = await Blog.findOneAndReplace(
-      { _id },
+      { _id: id },
       { title, content, date: new Date().toLocaleString() },
       { new: true }
     );
@@ -83,7 +85,7 @@ const putBlogByTitle = async (req: Request, res: Response) => {
 };
 
 const patchBlogByTitle = async (req: Request, res: Response) => {
-  const _id = req.params;
+  const { id } = req.params;
   const { title, content } = req.body;
 
   if (!title || !content)
@@ -91,7 +93,7 @@ const patchBlogByTitle = async (req: Request, res: Response) => {
 
   try {
     const updatedBlog = await Blog.findOneAndUpdate(
-      { _id },
+      { _id: id },
       { title, content, date: new Date().toLocaleString() },
       { new: true }
     );
@@ -106,11 +108,11 @@ const patchBlogByTitle = async (req: Request, res: Response) => {
 };
 
 const removeBlogByTitle = async (req: Request, res: Response) => {
-  const _id = req.params;
+  const { id } = req.params;
   try {
-    if (!_id) return res.status(404).json({ message: 'Title not found' });
+    if (!id) return res.status(404).json({ message: 'Title not found' });
 
-    const deletedBLog = await Blog.findOneAndDelete({ _id });
+    const deletedBLog = await Blog.findOneAndDelete({ _id: id });
 
     if (!deletedBLog) return res.status(401).json({ message: 'Error' });
 

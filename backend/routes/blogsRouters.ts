@@ -11,10 +11,10 @@ import {
 const router = express.Router();
 
 router.post('/', createBlog);
-router.get('/:_id', getBlogByTitle);
+router.get('/:id', getBlogByTitle);
 router.get('/', getAllBlogs);
-router.put('/:_id', putBlogByTitle);
-router.patch('/:_id', patchBlogByTitle);
-router.delete('/:_id', removeBlogByTitle);
+router.put('/:id', putBlogByTitle);
+router.patch('/:id', patchBlogByTitle);
+router.delete('/:id', removeBlogByTitle);
 
 export default router;
