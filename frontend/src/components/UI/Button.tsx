@@ -18,12 +18,17 @@ const MainButton = ({
   </button>
 );
 
-const FormButton = () => (
+interface FormButtons {
+  title: string;
+  bgColor: string;
+}
+
+const FormButton = ({ title, bgColor }: FormButtons) => (
   <button
     type="submit"
-    className="w-[40%] rounded-3xl bg-black px-6 py-2 text-xl font-medium uppercase text-white"
+    className={`w-[40%] rounded-3xl ${bgColor} px-6 py-2 text-xl font-medium uppercase text-white`}
   >
-    Submit
+    {title}
   </button>
 );
 

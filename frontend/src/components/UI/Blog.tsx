@@ -1,6 +1,6 @@
-const BlogTitle = () => {
+const BlogInputTitle = () => {
   return (
-    <div className="w-96">
+    <div className="w-96 mt-7">
       <label htmlFor="title" className="block text-gray-800 font-bold mb-2">
         Title
       </label>
@@ -15,7 +15,7 @@ const BlogTitle = () => {
   );
 };
 
-const BlogContent = () => {
+const BlogInputContent = () => {
   return (
     <div>
       <label htmlFor="content" className="block text-gray-800 font-bold mb-2">
@@ -32,4 +32,12 @@ const BlogContent = () => {
   );
 };
 
-export { BlogContent, BlogTitle };
+interface BlogTitleProps {
+  title: string;
+}
+
+const BlogTitle = ({ title }: BlogTitleProps) => (
+  <h1 className="text-3xl font-bold mb-4">{title}</h1>
+);
+
+export { BlogInputContent, BlogInputTitle, BlogTitle };

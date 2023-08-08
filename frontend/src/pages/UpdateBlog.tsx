@@ -1,16 +1,20 @@
-import { BlogTitle, BlogContent } from '../components/UI/Blog';
+import {
+  BlogInputTitle,
+  BlogInputContent,
+  BlogTitle,
+} from '../components/UI/Blog';
 import { FormButton } from '../components/UI/Button';
 
 const UpdateBlog = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
       <div className="bg-white p-10 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold mb-4">Blog</h1>
+        <BlogTitle title="Update Blog" />
         <form className="space-y-6">
-          <BlogTitle />
-          <BlogContent />
+          <BlogInputTitle />
+          <BlogInputContent />
           <div className="flex justify-center">
-            <FormButton />
+            <FormButton title="update" bgColor="bg-black" />
           </div>
         </form>
       </div>
