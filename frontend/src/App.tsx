@@ -5,32 +5,36 @@ import BlogLists from './pages/BlogLists';
 import SpecificBlog from './pages/SpecificBlog';
 import UpdateBlog from './pages/UpdateBlog';
 import Error from './pages/Error';
+import Root from './pages/Root';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: <Root />,
     errorElement: <Error />,
-  },
-  {
-    path: 'create-blog/',
-    element: <CreateBlog />,
-    errorElement: <Error />,
-  },
-  {
-    path: 'blog-lists/',
-    element: <BlogLists />,
-    errorElement: <Error />,
-  },
-  {
-    path: 'specific-blog/',
-    element: <SpecificBlog />,
-    errorElement: <Error />,
-  },
-  {
-    path: 'update-blog/',
-    element: <UpdateBlog />,
-    errorElement: <Error />,
+    id: 'root',
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: 'create-blog/:id',
+        element: <CreateBlog />,
+      },
+      {
+        path: 'blog-lists',
+        element: <BlogLists />,
+      },
+      {
+        path: 'specific-blog/:id',
+        element: <SpecificBlog />,
+      },
+      {
+        path: 'update-blog/:id',
+        element: <UpdateBlog />,
+      },
+    ],
   },
 ]);
 

@@ -14,7 +14,7 @@ const CreateBlog = () => {
           <BlogInputTitle />
           <BlogInputContent />
           <div className="flex justify-center">
-            <FormButton title="Submit" bgColor="bg-black" />
+            <FormButton title="Submit" url="/" bgColor="bg-black" />
           </div>
         </form>
       </div>

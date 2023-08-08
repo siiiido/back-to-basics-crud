@@ -15,8 +15,12 @@ const SpecificBlog = () => {
           <BlogInputContent />
         </form>
         <div className="flex justify-between pt-6">
-          <FormButton title="Edit" bgColor="bg-blue-500" />
-          <FormButton title="Delete" bgColor="bg-red-500" />
+          <FormButton
+            title="Edit"
+            url={`/update-blog/:id`}
+            bgColor="bg-blue-500"
+          />
+          <FormButton url="/" title="Delete" bgColor="bg-red-500" />
         </div>
       </div>
     </div>

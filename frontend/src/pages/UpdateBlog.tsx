@@ -14,7 +14,7 @@ const UpdateBlog = () => {
           <BlogInputTitle />
           <BlogInputContent />
           <div className="flex justify-center">
-            <FormButton title="update" bgColor="bg-black" />
+            <FormButton title="update" url="/" bgColor="bg-black" />
           </div>
         </form>
       </div>
