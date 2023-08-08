@@ -1,7 +1,41 @@
 import { useEffect, useState } from 'react';
-import { Button } from './components/UI/Button';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './pages/Home';
+import CreateBlog from './pages/CreateBlog';
+import BlogLists from './pages/BlogLists';
+import SpecificBlog from './pages/SpecificBlog';
+import UpdateBlog from './pages/UpdateBlog';
+import Error from './pages/Error';
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />,
+      errorElement: <Error />,
+    },
+    {
+      path: 'create-blog/',
+      element: <CreateBlog />,
+      errorElement: <Error />,
+    },
+    {
+      path: 'blog-lists/',
+      element: <BlogLists />,
+      errorElement: <Error />,
+    },
+    {
+      path: 'specific-blog/',
+      element: <SpecificBlog />,
+      errorElement: <Error />,
+    },
+    {
+      path: 'update-blog/',
+      element: <UpdateBlog />,
+      errorElement: <Error />,
+    },
+  ]);
+
   const [blogsState, setBlogState] = useState();
 
   useEffect(() => {
@@ -24,16 +58,7 @@ function App() {
     console.log(blogsState);
   }
 
-  return (
-    <div className="grid grid-cols-5 grid-rows-5 gap-4 min-h-screen bg-slate-300">
-      <div className="col-start-2 row-start-3 flex justify-center items-center">
-        <Button bgColor="bg-indigo-500">Create</Button>
-      </div>
-      <div className="col-start-4 row-start-3 flex justify-center items-center">
-        <Button bgColor="bg-lime-600">Read</Button>
-      </div>
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

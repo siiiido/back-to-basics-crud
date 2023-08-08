@@ -47,8 +47,9 @@ const getBlogById = async (req: Request, res: Response) => {
   // http://localhost:5001/blog/64cc5278253e69fd1c7794e5
   // req.params: { "id": "64cc5278253e69fd1c7794e5" }
   const { id } = req.params;
+
   try {
-    const blog = await Blog.findById(id).exec();
+    const blog = await Blog.findOne({ _id: id }).exec();
 
     if (!blog) return res.status(404).json({ message: 'Blog not found' });
 
