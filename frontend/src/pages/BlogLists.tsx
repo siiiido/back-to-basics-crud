@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Blog {
-  id: string;
+  _id: string;
   title: string;
   date: string;
   content: string;
@@ -40,7 +40,7 @@ const BlogLists: React.FC = () => {
           {blogs.map((blogData, index) => (
             <Link
               key={index}
-              to={`/specific-blog/${blogData.id}`}
+              to={`/specific-blog/${blogData._id}`}
               className="text-lg truncate text-gray-800 bg-gray-100 p-4 block cursor-pointer"
             >
               {blogData.title}
