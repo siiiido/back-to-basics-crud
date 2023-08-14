@@ -6,7 +6,7 @@ const Home = () => (
       <MainButton
         bgColorOpacity="bg-indigo-500/50"
         hoverColor="hover:bg-indigo-500"
-        url="create-blog/:id"
+        url="create-blog"
       >
         Create
       </MainButton>

@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   BlogInputTitle,
   BlogInputContent,
@@ -7,14 +8,34 @@ import {
 import { FormButton } from '../components/UI/Button';
 
 const CreateBlog: React.FC = () => {
+  const navigate = useNavigate();
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const contentInputRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (titleInputRef.current && contentInputRef.current) {
       const title: string = titleInputRef.current.value;
       const content: string = contentInputRef.current.value;
+      try {
+        const response = await fetch('http://localhost:5001/blog', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ title, content }),
+        });
+
+        if (response.ok) {
+          console.log(response, ' response');
+          navigate('/');
+        } else {
+          console.error('Post request failed');
+        }
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 
