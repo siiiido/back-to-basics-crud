@@ -26,13 +26,15 @@ interface FormButtons {
   title: string;
   url: string;
   bgColor: string;
+  handleSubmit: (e: React.FormEvent) => void;
 }
 
-const FormButton = ({ title, url, bgColor }: FormButtons) => (
+const FormButton = ({ title, url, bgColor, handleSubmit }: FormButtons) => (
   <Link
     type="submit"
     to={url}
     className={`w-[40%] rounded-3xl ${bgColor} px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
+    onClick={handleSubmit}
   >
     {title}
   </Link>
