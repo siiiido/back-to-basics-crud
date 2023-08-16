@@ -3,9 +3,13 @@ import Backdrop from './Backdrop';
 
 interface DeleteConfirmModalPorps {
   closeModal: () => void;
+  handleDeleteBlog: () => void;
 }
 
-const DeleteConfirmModal = ({ closeModal }: DeleteConfirmModalPorps) => {
+const DeleteConfirmModal = ({
+  closeModal,
+  handleDeleteBlog,
+}: DeleteConfirmModalPorps) => {
   return (
     <>
       {createPortal(
@@ -20,7 +24,10 @@ const DeleteConfirmModal = ({ closeModal }: DeleteConfirmModalPorps) => {
               >
                 No
               </button>
-              <button className="px-4 py-2 bg-red-500 text-white rounded-lg uppercase">
+              <button
+                className="px-4 py-2 bg-red-500 text-white rounded-lg uppercase"
+                onClick={handleDeleteBlog}
+              >
                 Yes
               </button>
             </div>

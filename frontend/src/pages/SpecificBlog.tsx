@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import DeleteConfirmModal from '../components/UI/DeleteConfirmModal';
 
 import {
@@ -19,13 +19,19 @@ interface Blog {
 const SpecificBlog = () => {
   const [specificBlog, setSpecificBlog] = useState<Blog | null>(null);
   const [open, setOpen] = useState<boolean>(false);
+  const [isDeleteBlog, setIsDeleteBlog] = useState<boolean>(false);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const openModal = () => {
     setOpen(true);
   };
   const closeModal = () => {
     setOpen(false);
+  };
+
+  const handleDeleteBlog = () => {
+    setIsDeleteBlog(true);
   };
 
   useEffect(() => {
@@ -49,13 +55,37 @@ const SpecificBlog = () => {
     getBlogById();
   }, []);
 
+  const deleteBlog = async () => {
+    const response = await fetch(`http://localhost:5001/blog/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+
+      console.log(responseData, ' responseData');
+      navigate('/blog-lists');
+    } else {
+      console.error('Failed');
+    }
+  };
+
+  if (isDeleteBlog) {
+    deleteBlog();
+  }
+
   if (!specificBlog) {
     return <h1>Loading</h1>;
   }
 
   return (
     <>
-      {open && <DeleteConfirmModal closeModal={closeModal} />}
+      {open && (
+        <DeleteConfirmModal
+          closeModal={closeModal}
+          handleDeleteBlog={handleDeleteBlog}
+        />
+      )}
       <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
         <div className="bg-white p-10 rounded-lg shadow-lg">
           <BlogTitle title="Specific Blog" />
