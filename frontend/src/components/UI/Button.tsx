@@ -1,43 +1,42 @@
 import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { ReactNode, ButtonHTMLAttributes } from 'react';
 
-interface MainButtonProps {
-  hoverColor: string;
-  bgColorOpacity: string;
-  url: string;
-  children: React.ReactNode;
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  type?: 'button' | 'submit' | 'reset';
+  buttonStyle: string;
+  onClick: () => void;
+  children: ReactNode;
 }
 
-const MainButton = ({
-  bgColorOpacity,
-  hoverColor,
-  url,
+const Button: React.FC = ({
+  buttonStyle,
+  onClick,
   children,
-}: MainButtonProps) => (
-  <Link
-    to={url}
-    className={`${bgColorOpacity} w-48 h-24 rounded-md text-xl ${hoverColor} cursor-pointer transition duration-300 ease-in-out flex justify-center items-center `}
-  >
-    {children}
-  </Link>
-);
+  type = 'button',
+}: ButtonProps) => {
+  return (
+    <button className={buttonStyle} type={type} onClick={onClick}>
+      {children}
+    </button>
+  );
+};
 
-interface FormButtons {
-  title: string;
-  url: string;
-  bgColor: string;
-  handleSubmit: (e: React.FormEvent) => void;
+interface LinkButtonProps extends ButtonProps {
+  to: string;
 }
 
-const FormButton = ({ title, url, bgColor, handleSubmit }: FormButtons) => (
-  <Link
-    type="submit"
-    to={url}
-    className={`w-[40%] rounded-3xl ${bgColor} px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
-    onClick={handleSubmit}
-  >
-    {title}
-  </Link>
-);
+const LinkButton: React.FC = ({
+  to,
+  buttonStyle,
+  onClick,
+  children,
+  type = 'button',
+}: LinkButtonProps) => {
+  return (
+    <Link className={buttonStyle} to={to} onClick={onClick} type={type}>
+      {children}
+    </Link>
+  );
+};
 
-export { MainButton, FormButton };
+export { Button, LinkButton };

@@ -7,7 +7,7 @@ import {
   BlogTitleRead,
   BlogTitle,
 } from '../components/UI/Blog';
-import { FormButton } from '../components/UI/Button';
+import { FormButton, Button, LinkButton } from '../components/UI/Button';
 
 interface Blog {
   _id: string;
@@ -94,15 +94,19 @@ const SpecificBlog = () => {
             <BlogContentRead value={specificBlog.content} />
           </form>
           <div className="flex justify-between pt-6">
-            <FormButton
-              title="Edit"
-              url={`/update-blog/:id`}
-              bgColor="bg-blue-500"
-            />
+            <LinkButton
+              buttonStyle={`w-[40%] rounded-3xl bg-blue-500 px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
+              to={`/update-blog/${id}`}
+            >
+              Edit
+            </LinkButton>
             {/* <FormButton url="/" title="Delete" bgColor="bg-red-500" /> */}
-            <button className="bg-red-500" onClick={openModal}>
+            <Button
+              buttonStyle={`w-[40%] rounded-3xl bg-red-500 px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
+              onClick={openModal}
+            >
               Delete
-            </button>
+            </Button>
           </div>
         </div>
       </div>

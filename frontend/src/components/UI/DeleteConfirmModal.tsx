@@ -1,5 +1,6 @@
 import { createPortal } from 'react-dom';
 import Backdrop from './Backdrop';
+import { Button } from './Button';
 
 interface DeleteConfirmModalPorps {
   closeModal: () => void;
@@ -18,18 +19,18 @@ const DeleteConfirmModal = ({
           <div className="bg-white p-6 rounded-lg shadow-lg z-10">
             <h2 className="text-xl font-bold mb-4">Are you sure?</h2>
             <div className="flex justify-end space-x-4">
-              <button
-                className="px-4 py-2 bg-gray-300 rounded-lg uppercase"
+              <Button
+                buttonStyle="px-4 py-2 bg-gray-300 rounded-lg uppercase"
                 onClick={closeModal}
               >
                 No
-              </button>
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded-lg uppercase"
+              </Button>
+              <Button
+                buttonStyle="px-4 py-2 bg-red-500 text-white rounded-lg uppercase"
                 onClick={handleDeleteBlog}
               >
                 Yes
-              </button>
+              </Button>
             </div>
           </div>
         </div>,

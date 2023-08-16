@@ -3,7 +3,7 @@ import {
   BlogInputContent,
   BlogTitle,
 } from '../components/UI/Blog';
-import { FormButton } from '../components/UI/Button';
+import { LinkButton } from '../components/UI/Button';
 
 const UpdateBlog = () => {
   return (
@@ -14,7 +14,12 @@ const UpdateBlog = () => {
           <BlogInputTitle />
           <BlogInputContent />
           <div className="flex justify-center">
-            <FormButton title="update" url="/" bgColor="bg-black" />
+            <LinkButton
+              buttonStyle={`w-[40%] rounded-3xl bg-black px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
+              to={'/'}
+            >
+              update
+            </LinkButton>
           </div>
         </form>
       </div>

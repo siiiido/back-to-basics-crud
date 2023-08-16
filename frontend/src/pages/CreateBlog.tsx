@@ -5,7 +5,7 @@ import {
   BlogInputContent,
   BlogTitle,
 } from '../components/UI/Blog';
-import { FormButton } from '../components/UI/Button';
+import { LinkButton } from '../components/UI/Button';
 
 const CreateBlog: React.FC = () => {
   const navigate = useNavigate();
@@ -47,12 +47,13 @@ const CreateBlog: React.FC = () => {
           <BlogInputTitle ref={titleInputRef} />
           <BlogInputContent ref={contentInputRef} />
           <div className="flex justify-center">
-            <FormButton
-              handleSubmit={handleSubmit}
-              title="Submit"
-              url="/"
-              bgColor="bg-black"
-            />
+            <LinkButton
+              buttonStyle={`w-[40%] rounded-3xl bg-black px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
+              to={'/'}
+              onClick={handleSubmit}
+            >
+              submit
+            </LinkButton>
           </div>
         </form>
       </div>
