@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import DeleteConfirmModal from '../components/UI/DeleteConfirmModal';
 
-import {
-  BlogContentRead,
-  BlogTitleRead,
-  BlogTitle,
-} from '../components/UI/Blog';
-import { FormButton, Button, LinkButton } from '../components/UI/Button';
+import { BlogTitle } from '../components/UI/Blog';
+import { Button, LinkButton } from '../components/UI/Button';
+import Input from '../components/UI/Input';
+import TextArea from '../components/UI/TextArea';
 
 interface Blog {
   _id: string;
@@ -90,8 +88,22 @@ const SpecificBlog = () => {
         <div className="bg-white p-10 rounded-lg shadow-lg">
           <BlogTitle title="Specific Blog" />
           <form className="space-y-6">
-            <BlogTitleRead value={specificBlog.title} />
-            <BlogContentRead value={specificBlog.content} />
+            <Input
+              type="text"
+              label="title"
+              name="title"
+              placeholder="Enter Title"
+              disabled={true}
+              value={specificBlog.title}
+            />
+            <TextArea
+              label="content"
+              name="content"
+              rows={5}
+              placeholder="Enter content"
+              disabled={true}
+              value={specificBlog.content}
+            />
           </form>
           <div className="flex justify-between pt-6">
             <LinkButton

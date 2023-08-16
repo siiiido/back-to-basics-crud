@@ -1,11 +1,9 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  BlogInputTitle,
-  BlogInputContent,
-  BlogTitle,
-} from '../components/UI/Blog';
+import { BlogTitle } from '../components/UI/Blog';
 import { LinkButton } from '../components/UI/Button';
+import Input from '../components/UI/Input';
+import TextArea from '../components/UI/TextArea';
 
 const CreateBlog: React.FC = () => {
   const navigate = useNavigate();
@@ -44,8 +42,20 @@ const CreateBlog: React.FC = () => {
       <div className="bg-white p-10 rounded-lg shadow-lg">
         <BlogTitle title="Create Blog" />
         <form className="space-y-6">
-          <BlogInputTitle ref={titleInputRef} />
-          <BlogInputContent ref={contentInputRef} />
+          <Input
+            type="text"
+            label="title"
+            name="title"
+            placeholder="Enter Title"
+            ref={titleInputRef}
+          />
+          <TextArea
+            label="content"
+            name="content"
+            rows={5}
+            placeholder="Enter content"
+            ref={contentInputRef}
+          />
           <div className="flex justify-center">
             <LinkButton
               buttonStyle={`w-[40%] rounded-3xl bg-black px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
