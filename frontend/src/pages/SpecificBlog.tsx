@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import DeleteConfirmModal from '../components/UI/DeleteConfirmModal';
 
 import {
   BlogContentRead,
@@ -17,7 +18,15 @@ interface Blog {
 
 const SpecificBlog = () => {
   const [specificBlog, setSpecificBlog] = useState<Blog | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
   const { id } = useParams();
+
+  const openModal = () => {
+    setOpen(true);
+  };
+  const closeModal = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     const getBlogById = async () => {
@@ -45,23 +54,29 @@ const SpecificBlog = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
-      <div className="bg-white p-10 rounded-lg shadow-lg">
-        <BlogTitle title="Specific Blog" />
-        <form className="space-y-6">
-          <BlogTitleRead value={specificBlog.title} />
-          <BlogContentRead value={specificBlog.content} />
-        </form>
-        <div className="flex justify-between pt-6">
-          <FormButton
-            title="Edit"
-            url={`/update-blog/:id`}
-            bgColor="bg-blue-500"
-          />
-          <FormButton url="/" title="Delete" bgColor="bg-red-500" />
+    <>
+      {open && <DeleteConfirmModal closeModal={closeModal} />}
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
+        <div className="bg-white p-10 rounded-lg shadow-lg">
+          <BlogTitle title="Specific Blog" />
+          <form className="space-y-6">
+            <BlogTitleRead value={specificBlog.title} />
+            <BlogContentRead value={specificBlog.content} />
+          </form>
+          <div className="flex justify-between pt-6">
+            <FormButton
+              title="Edit"
+              url={`/update-blog/:id`}
+              bgColor="bg-blue-500"
+            />
+            {/* <FormButton url="/" title="Delete" bgColor="bg-red-500" /> */}
+            <button className="bg-red-500" onClick={openModal}>
+              Delete
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
