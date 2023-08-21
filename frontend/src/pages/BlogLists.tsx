@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import BlogListSkeleton from '../components/UI/BlogListSkeleton';
 
 interface Blog {
   _id: string;
@@ -32,6 +33,9 @@ const BlogLists: React.FC = () => {
     getBlogLists();
   }, []);
 
+  if (blogs.length === 0) {
+    return <BlogListSkeleton />;
+  }
   return (
     <div className="flex justify-center items-center h-screen bg-slate-300">
       <div className="bg-white p-10 rounded-lg shadow-lg w-1/2 h-5/6 overflow-y-scroll">
