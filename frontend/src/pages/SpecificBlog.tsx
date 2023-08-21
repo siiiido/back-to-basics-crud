@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import DeleteConfirmModal from '../components/UI/DeleteConfirmModal';
-
 import { BlogTitle } from '../components/UI/Blog';
 import { Button, LinkButton } from '../components/UI/Button';
 import Input from '../components/UI/Input';
 import TextArea from '../components/UI/TextArea';
+import BlogSkeleton from '../components/UI/BlogSkeleton';
 
 interface Blog {
   _id: string;
@@ -73,7 +73,7 @@ const SpecificBlog = () => {
   }
 
   if (!specificBlog) {
-    return <h1>Loading</h1>;
+    return <BlogSkeleton />;
   }
 
   return (
@@ -112,7 +112,6 @@ const SpecificBlog = () => {
             >
               Edit
             </LinkButton>
-            {/* <FormButton url="/" title="Delete" bgColor="bg-red-500" /> */}
             <Button
               buttonStyle={`w-[40%] rounded-3xl bg-red-500 px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
               onClick={openModal}
