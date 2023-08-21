@@ -5,15 +5,11 @@ import { LinkButton } from '../components/UI/Button';
 import Input from '../components/UI/Input';
 import TextArea from '../components/UI/TextArea';
 import BlogSkeleton from '../components/UI/BlogSkeleton';
+import { isEmpty } from '../utils/validator';
 
-interface Blog {
-  _id: string;
-  title: string;
-  date: string;
-  content: string;
-}
 const UpdateBlog = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
   const navigate = useNavigate();
   const titleInputRef = useRef<HTMLInputElement | null>();
   const contentInputRef = useRef<HTMLInputElement | null>();
@@ -42,6 +38,11 @@ const UpdateBlog = () => {
     if (titleInputRef.current && contentInputRef.current) {
       const title: string = titleInputRef.current.value;
       const content: string = contentInputRef.current.value;
+
+      setIsError(isEmpty(title));
+      setIsError(isEmpty(content));
+
+      if (isError) return;
 
       try {
         const response = await fetch(`http://localhost:5001/blog/${id}`, {
@@ -80,6 +81,7 @@ const UpdateBlog = () => {
             name="title"
             placeholder="Enter Title"
             ref={titleInputRef}
+            error={isError}
           />
           <TextArea
             label="content"
@@ -87,6 +89,7 @@ const UpdateBlog = () => {
             rows={5}
             placeholder="Enter content"
             ref={contentInputRef}
+            error={isError}
           />
           <div className="flex justify-center">
             <LinkButton

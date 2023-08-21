@@ -1,12 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BlogTitle } from '../components/UI/Blog';
 import { LinkButton } from '../components/UI/Button';
 import Input from '../components/UI/Input';
 import TextArea from '../components/UI/TextArea';
+import { isEmpty } from '../utils/validator';
 
 const CreateBlog: React.FC = () => {
   const navigate = useNavigate();
+  const [isError, setIsError] = useState<boolean>(false);
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const contentInputRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -16,6 +18,11 @@ const CreateBlog: React.FC = () => {
     if (titleInputRef.current && contentInputRef.current) {
       const title: string = titleInputRef.current.value;
       const content: string = contentInputRef.current.value;
+
+      setIsError(isEmpty(title));
+      setIsError(isEmpty(content));
+
+      if (isError) return;
       try {
         const response = await fetch('http://localhost:5001/blog', {
           method: 'POST',
@@ -48,6 +55,7 @@ const CreateBlog: React.FC = () => {
             name="title"
             placeholder="Enter Title"
             ref={titleInputRef}
+            error={isError}
           />
           <TextArea
             label="content"
@@ -55,6 +63,7 @@ const CreateBlog: React.FC = () => {
             rows={5}
             placeholder="Enter content"
             ref={contentInputRef}
+            error={isError}
           />
           <div className="flex justify-center">
             <LinkButton
