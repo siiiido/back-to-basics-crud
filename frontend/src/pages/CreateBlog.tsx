@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BlogTitle } from '../components/UI/Blog';
-import { LinkButton } from '../components/UI/Button';
+import { Button } from '../components/UI/Button';
 import Input from '../components/UI/Input';
 import TextArea from '../components/UI/TextArea';
 import { isEmpty } from '../utils/validator';
@@ -66,13 +66,11 @@ const CreateBlog: React.FC = () => {
             error={isError}
           />
           <div className="flex justify-center">
-            <LinkButton
-              buttonStyle={`w-[40%] rounded-3xl bg-black px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
-              to={'/'}
+            <Button
+              className={`w-[40%] rounded-3xl bg-black px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
               onClick={handleSubmit}
-            >
-              submit
-            </LinkButton>
+              title="submit"
+            />
           </div>
         </form>
       </div>

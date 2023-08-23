@@ -1,42 +1,35 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import React, { ReactNode, ButtonHTMLAttributes } from 'react';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  type?: 'button' | 'submit' | 'reset';
-  buttonStyle: string;
-  onClick: () => void;
-  children: ReactNode;
+interface ButtonProps extends React.ComponentPropsWithoutRef<'button'> {
+  title: string;
 }
 
-const Button: React.FC = ({
-  buttonStyle,
-  onClick,
-  children,
-  type = 'button',
-}: ButtonProps) => {
-  return (
-    <button className={buttonStyle} type={type} onClick={onClick}>
-      {children}
-    </button>
-  );
+const Button = ({ title, ...rest }: ButtonProps) => {
+  return <button {...rest}>{title}</button>;
 };
 
-interface LinkButtonProps extends ButtonProps {
+const ButtonWrapper: React.FunctionComponent<
+  React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > & {
+    title: string;
+  }
+> = ({ title, ...props }) => <button {...props}>{title}</button>;
+
+interface LinkButtonProps
+  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  title: string;
   to: string;
 }
 
-const LinkButton: React.FC = ({
-  to,
-  buttonStyle,
-  onClick,
-  children,
-  type = 'button',
-}: LinkButtonProps) => {
+const LinkButton = ({ to, title, ...rest }: LinkButtonProps) => {
   return (
-    <Link className={buttonStyle} to={to} onClick={onClick} type={type}>
-      {children}
+    <Link to={to} {...rest}>
+      {title}
     </Link>
   );
 };
 
-export { Button, LinkButton };
+export { Button, LinkButton, ButtonWrapper };

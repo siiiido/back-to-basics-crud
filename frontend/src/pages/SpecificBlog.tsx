@@ -107,17 +107,15 @@ const SpecificBlog = () => {
           </form>
           <div className="flex justify-between pt-6">
             <LinkButton
-              buttonStyle={`w-[40%] rounded-3xl bg-blue-500 px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
+              className={`w-[40%] rounded-3xl bg-blue-500 px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
               to={`/update-blog/${id}`}
-            >
-              Edit
-            </LinkButton>
+              title="Edit"
+            />
             <Button
-              buttonStyle={`w-[40%] rounded-3xl bg-red-500 px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
+              className={`w-[40%] rounded-3xl bg-red-500 px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
               onClick={openModal}
-            >
-              Delete
-            </Button>
+              title="Delete"
+            />
           </div>
         </div>
       </div>

@@ -20,17 +20,15 @@ const DeleteConfirmModal = ({
             <h2 className="text-xl font-bold mb-4">Are you sure?</h2>
             <div className="flex justify-end space-x-4">
               <Button
-                buttonStyle="px-4 py-2 bg-gray-300 rounded-lg uppercase"
+                className="px-4 py-2 bg-gray-300 rounded-lg uppercase"
                 onClick={closeModal}
-              >
-                No
-              </Button>
+                title="No"
+              />
               <Button
-                buttonStyle="px-4 py-2 bg-red-500 text-white rounded-lg uppercase"
+                className="px-4 py-2 bg-red-500 text-white rounded-lg uppercase"
                 onClick={handleDeleteBlog}
-              >
-                Yes
-              </Button>
+                title="Yes"
+              />
             </div>
           </div>
         </div>,

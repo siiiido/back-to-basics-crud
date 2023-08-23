@@ -1,18 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BlogTitle } from '../components/UI/Blog';
-import { LinkButton } from '../components/UI/Button';
+import { Button } from '../components/UI/Button';
 import Input from '../components/UI/Input';
 import TextArea from '../components/UI/TextArea';
 import BlogSkeleton from '../components/UI/BlogSkeleton';
 import { isEmpty } from '../utils/validator';
 
-const UpdateBlog = () => {
+const UpdateBlog: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const navigate = useNavigate();
-  const titleInputRef = useRef<HTMLInputElement | null>();
-  const contentInputRef = useRef<HTMLInputElement | null>();
+  const titleInputRef = useRef<HTMLInputElement | null>(null);
+  const contentInputRef = useRef<HTMLTextAreaElement | null>(null);
   const { id } = useParams();
 
   useEffect(() => {
@@ -23,6 +23,7 @@ const UpdateBlog = () => {
         });
         if (response.ok) {
           const responseData = await response.json();
+          console.log(responseData, ' responseData');
           setIsLoading(true);
         }
       } catch (error) {
@@ -80,8 +81,8 @@ const UpdateBlog = () => {
             label="title"
             name="title"
             placeholder="Enter Title"
-            ref={titleInputRef}
             error={isError}
+            ref={titleInputRef}
           />
           <TextArea
             label="content"
@@ -92,12 +93,11 @@ const UpdateBlog = () => {
             error={isError}
           />
           <div className="flex justify-center">
-            <LinkButton
-              buttonStyle={`w-[40%] rounded-3xl bg-black px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
+            <Button
+              className={`w-[40%] rounded-3xl bg-black px-6 py-2 text-xl font-medium uppercase text-white flex justify-center items-center`}
               onClick={handleInputChange}
-            >
-              update
-            </LinkButton>
+              title="update"
+            />
           </div>
         </form>
       </div>

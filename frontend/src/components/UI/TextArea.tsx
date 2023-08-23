@@ -1,6 +1,6 @@
-import React, { forwardRef, TextareaHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 
-interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+interface TextAreaProps {
   label: string;
   name: string;
   placeholder: string;
@@ -10,7 +10,7 @@ interface TextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   rows: number;
 }
 
-const TextArea: React.FC = forwardRef<HTMLTextAreaElement, TextAreaProps>(
+const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ label, name, placeholder, error, value, disabled, rows }, ref) => {
     return (
       <div>

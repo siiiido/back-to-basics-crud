@@ -1,6 +1,6 @@
-import React, { forwardRef, InputHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface InputProps {
   type?: 'text' | 'number' | 'email' | 'password';
   label: string;
   name: string;
@@ -10,7 +10,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
 }
 
-const Input: React.FC = forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     { label, name, placeholder, error, value, disabled, type = 'text' },
     ref
