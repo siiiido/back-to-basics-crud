@@ -43,6 +43,7 @@ describe('Test BlogLists Component', () => {
     });
   });
 
+  // Test skeleton UI when no blogs are avatilable
   test('renders skeleton when no blogs are avatilable', async () => {
     server.use(
       rest.get('http://localhost:5001/blog', (req, res, ctx) => {
@@ -59,5 +60,12 @@ describe('Test BlogLists Component', () => {
     await waitFor(() => {
       expect(screen.getByTestId('blog-list-skeleton')).toBeInTheDocument();
     });
+  });
+
+  // Test only skeleton UI
+  test('renders skeleton while loading', () => {
+    render(<BlogLists />, { wrapper: MemoryRouter });
+
+    expect(screen.getByTestId('blog-list-skeleton')).toBeInTheDocument();
   });
 });
