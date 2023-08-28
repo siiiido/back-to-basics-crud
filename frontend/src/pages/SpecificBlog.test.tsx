@@ -2,7 +2,9 @@ import { render, screen, fireEvent, waitFor } from '../utils/test-utils';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { MemoryRouter } from 'react-router-dom';
+import { vi } from 'vitest';
 import SpecificBlog from './SpecificBlog';
+import DeleteConfirmModal from '../components/UI/DeleteConfirmModal';
 
 const testData = {
   _id: 'mockId',
@@ -43,14 +45,42 @@ describe('SpecifcBlog Component', () => {
     expect(screen.getByText('Delete')).toBeInTheDocument();
   });
 
-  test('opens delete confirmation modal', async () => {
-    render(<SpecificBlog />, { wrapper: MemoryRouter });
+  test('displays and closes modal', () => {
+    const closeModalMock = vi.fn();
+    const handleDeleteBlogMock = vi.fn();
 
-    await waitFor(() => {
-      expect(screen.getByText('Delete')).toBeInTheDocument();
-      fireEvent.click(screen.getByText('Delete'));
+    // Create a div element for the overlay-root container
+    const overlayRoot = document.createElement('div');
+    overlayRoot.setAttribute('id', 'overlay-root');
+    document.body.appendChild(overlayRoot);
 
-      expect(screen.getByText('Are you sure?')).toBeInTheDocument();
+    render(
+      <DeleteConfirmModal
+        closeModal={closeModalMock}
+        handleDeleteBlog={handleDeleteBlogMock}
+      />
+    );
+  });
+
+  test('displays Delete Confirm Modal when delete button is clicked', () => {
+    const mockSpecificBlog = {
+      _id: '123',
+      title: 'Test Blog',
+      content: 'Test Content',
+      date: '2023-08-28',
+    };
+
+    render(<SpecificBlog />, {
+      preloadedState: { specificBlog: mockSpecificBlog },
     });
+
+    // Click the Delete button
+    const deleteButton = screen.getByRole('button', { name: /delete/i });
+    fireEvent.click(deleteButton);
+
+    // Check if the Delete Confirm Modal UI is displayed
+    expect(screen.getByText(/are you sure/i)).toBeInTheDocument();
+    expect(screen.getByText(/no/i)).toBeInTheDocument();
+    expect(screen.getByText(/yes/i)).toBeInTheDocument();
   });
 });
